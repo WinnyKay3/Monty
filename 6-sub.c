@@ -7,19 +7,22 @@
  * @stack: the stack given by the main
  * @line_cnt: the line counter
  *
- * Return: void
  */
-void_sub(stack_t **stack, unsigned int line_cnt)
+void sub(stack_t **stack, unsigned int line_cnt)
 {
-	int value;
+	stack_t *temp;
 	
 	if (!stack || !*stack || !((*stack)->next))
 	{
 		fprintf(stderr, "L%d: cant sub, stack too short\n",line_cnt);
-		status = EXIT_FAILURE;
+		exit(EXIT_FAILURE);
 		return;
 	}
-	value = ((*stack)->next->n) - ((*stack)->n);
-	pop(stack, line_cnt);
-	(*stack)->n = value;
+	(*stack)->next->n -= (*stack)->n;
+	temp = *stack;
+	*stack = (*stack)->next;
+	(*stack)->prev = NULL;
+	free(temp);
 }
+
+

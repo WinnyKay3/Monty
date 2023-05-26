@@ -1,9 +1,12 @@
-#ifndef _MONTY
-#define _MONTY
+#ifndef _MONTY_H
+#define _MONTY_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <string.h>
+#include <ctype.h>
 
 #define STACK 0
 #define QUEUE 1
