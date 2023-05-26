@@ -5,16 +5,16 @@
 /**
  * sub - subtracts the first two nodes of the stack
  * @stack: the stack given by the main
- * @line_cnt: the line counter
+ * @line_number: the line number
  *
  */
-void sub(stack_t **stack, unsigned int line_cnt)
+void sub(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 	
 	if (!stack || !*stack || !((*stack)->next))
 	{
-		fprintf(stderr, "L%d: cant sub, stack too short\n",line_cnt);
+		fprintf(stderr, "L%d: cant sub, stack too short\n",line_number);
 		exit(EXIT_FAILURE);
 		return;
 	}

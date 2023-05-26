@@ -6,17 +6,17 @@
 /**
  * push - pushes element to the stack
  * @stack: double pointer to the head of the stack
- * @line_cnt: number of lines
+ * @line_number: number of lines
  */
 
-void push(stack_t **stack, unsigned int line_cnt)
+void push(stack_t **stack, unsigned int line_number)
 {
 	char *arg = strtok(NULL, "\t\n");
 	stack_t *new_node;
 
 	if (arg == NULL || !is_integer(arg))
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_cnt);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	new_node = malloc(sizeof(stack_t));

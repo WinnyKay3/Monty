@@ -1,30 +1,63 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #include "monty.h"
+#include <stdio.h>
+#include <sys/types.h>
+#include <strings.h>
+#include <unistd.h>
+#include <ctype.h>
+#include <stdlib.h>
+
+#define MAX_LINE_LENGTH 1024
+
+
+/* Function prototype for line parsing */
+void parseLine(char *line, stack_t **stack, unsigned int line_number);
 
 /**
- * main - the entry point for monty interpreter
+ * main - Entry point of the program.
+ * @argc: The number of command-line arguments.
+ * @argv: An array of strings containing the command-line arguments.
  *
- * @argc: the count of arguments passed to the prog
- * @argv: points to an array of char pointers to arguments
- *
- * Return: (EXIT_SUCCESS)on success (EXIT_FAILURE) on error
+ * Return: 0 on success, or exit with failure on error.
  */
 
-char **op_toks = NULL;
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-	FILE *script_fd = NULL;
-	int exit_code = EXIT_SUCCESS;
+	FILE *file;
+	char line[MAX_LINE_LENGTH];
+	unsigned int line_number = 0;
+	stack_t *stack = NULL;
 
 	if (argc != 2)
-		return (usage_error());
-	script_fd = fopen(argv[1], "r");
-	if (script_fd == NULL)
-		return (f_open_error(argv[1]));
-	exit_code = run_monty(script_fd);
-	fclose(script_fd);
-	return (exit_code);
+	{
+		fprintf(stderr, "Usage: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+
+	file = fopen(argv[1], "r");
+	if (file == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
+	}
+	while (fgets(line, MAX_LINE_LENGTH, file) != NULL)
+	{
+		line_number++;
+		line[strcspn(line, "$")] = '\0';
+		parseLine(line, &stack, line_number);
+	}
+
+	fclose(file);
+
+	/* Free the stack */
+	while (stack != NULL)
+	{
+
+		stack_t *temp = stack;
+
+		stack = stack->next;
+
+		free(temp);
+	}
+	return (0);
 }
 
