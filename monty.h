@@ -58,5 +58,7 @@ void push(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
+void usage_error(void);
+void execute(char *argv);
 
 #endif /* MONTY_H */
