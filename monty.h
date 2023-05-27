@@ -38,7 +38,7 @@ typedef struct instruction_s
 {
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
-} instruction_s;
+} instruction_t;
 
 
 /* Function prototypes */
@@ -68,5 +68,6 @@ int get_value(char *token);
 char get_token(char *op, char *token);
 void _free(stack_t *stack);
 void clean_stack(stack_t **stack);
+void parseLine(char *line, stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */
