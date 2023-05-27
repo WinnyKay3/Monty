@@ -60,5 +60,13 @@ void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void usage_error(void);
 void execute(char *argv);
+int get_opc(stack_t **stack, char *arg, char *val, int line_number);
+void push_error(FILE *fd, char *line, stack_t *stack, int line_number);
+void instr_error(FILE *fd, char *line, stack_t *stack, char *val, int line_number);
+int check_push(char *token);
+int get_value(char *token);
+char get_token(char *op, char *token);
+void _free(stack_t *stack);
+void clean_stack(stack_t **stack);
 
 #endif /* MONTY_H */

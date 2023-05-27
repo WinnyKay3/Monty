@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		excute(argv[1]);
+		execute(argv[1]);
 	}
 
 	return (EXIT_SUCCESS);
