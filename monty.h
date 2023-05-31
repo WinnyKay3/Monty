@@ -58,16 +58,8 @@ void push(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
-void usage_error(void);
-void execute(char *argv);
-int get_opc(stack_t **stack, char *arg, char *val, int line_number);
-void push_error(FILE *fd, char *line, stack_t *stack, int line_number);
-int check_push(char *token);
-int get_value(char *token);
-char get_token(char *op, char *token);
-void _free(stack_t *stack);
-void clean_stack(stack_t **stack);
+void queue(stack_t **stack, unsigned int line_number);
+void stack_handler(stack_t **stack, unsigned int line_number);
 void parseLine(char *line, stack_t **stack, unsigned int line_number);
-void _perror(stack_t **stack, char *error, int line_number);
 
 #endif /* MONTY_H */

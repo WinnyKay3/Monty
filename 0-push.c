@@ -1,27 +1,29 @@
 #include "monty.h"
 #include <stdlib.h>
 #include <ctype.h>
-#include <string.h>
 
 /**
- * push - pushes element to the stack
- * @stack: double pointer to the head of the stack
- * @line_number: number of lines
+ * push - Pushes an element to the stack
+ * @stack: Double pointer to the head of the stack
+ * @line_number: Line number of the instruction in the Monty file
  */
 
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *arg = strtok(NULL, "\t\n ");
+	char *arg = strtok(NULL, " \t\n");
 	stack_t *new_node;
 
 	if (arg == NULL || !is_integer(arg))
 	{
-		_perror(stack, "L%u: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: USAGE: push integer\n", line_number);
+		exit(EXIT_FAILURE);
 	}
+
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
-		_perror(stack, "Error: malloc failed\n", 0);
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
 	}
 
 	new_node->n = atoi(arg);

@@ -26,7 +26,7 @@ void pall(stack_t **stack, unsigned int line_number);
 void parseLine(char *line, stack_t **stack, unsigned int line_number)
 {
 	char *opcode;
-	int i;
+	int k;
 	instruction_t opcodes[] = {
 		{"add", add},
 		{"nop", nop},
@@ -42,7 +42,10 @@ void parseLine(char *line, stack_t **stack, unsigned int line_number)
 		{"pop", pop},
 		{"pint", pint},
 		{"push", push},
+		{"queue", queue},
+		{"stack", stack_handler},
 		{"pall", pall},
+		/* Here is where I added the opcode functions */
 		{NULL, NULL}
 	};
 
@@ -50,16 +53,18 @@ void parseLine(char *line, stack_t **stack, unsigned int line_number)
 	if (opcode == NULL || opcode[0] == '#')
 		return;
 
-	for (i = 0; opcodes[i].opcode != NULL; i++)
+	for (k = 0; opcodes[k].opcode != NULL; k++)
 	{
-		if (strcmp(opcode, opcodes[i].opcode) == 0)
+		if (strcmp(opcode, opcodes[k].opcode) == 0)
 		{
-			opcodes[i].f(stack, line_number);
-			return;
+			opcodes[k].f(stack, line_number);
+			break;
 		}
 	}
 
-	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+	if (opcodes[k].opcode == NULL)
+	{
+		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
 	exit(EXIT_FAILURE);
+	}
 }
-
