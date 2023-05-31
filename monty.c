@@ -47,14 +47,6 @@ int main(int argc, char *argv[])
 	}
 
 	fclose(file);
-	while (stack != NULL)
-	{
-
-		stack_t *temp = stack;
-
-		stack = stack->next;
-
-		free(temp);
-	}
+	_free(stack);
 	return (0);
 }

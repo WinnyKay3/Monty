@@ -11,24 +11,22 @@
 
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *arg = strtok(NULL, "\t\n");
+	char *arg = strtok(NULL, "\t\n ");
 	stack_t *new_node;
 
 	if (arg == NULL || !is_integer(arg))
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
+		_perror(stack, "L%u: usage: push integer\n", line_number);
 	}
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
-		fprintf(stderr,"Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		_perror(stack, "Error: malloc failed\n", 0);
 	}
 
 	new_node->n = atoi(arg);
 	new_node->prev = NULL;
-	
+
 	if (*stack != NULL)
 	{
 		new_node->next = *stack;
